@@ -26,6 +26,8 @@ jobs:
           script: |
             github.rest.checks.create({
               name: "Lint",
+              head_sha: context.sha,
+              repo: context.repo,
               status: "failure",
               output: {
                 title: "Code Style",
@@ -39,8 +41,7 @@ jobs:
                     message: 'Line 12: Use `const` instead of `let`.'
                   }
                 ]
-              },
-              ...github.context.repo
+              }
             })
       # - name: Run tests
       #   run: npm test

@@ -23,7 +23,6 @@ jobs:
       - name: Create GitHub Check Run
         uses: actions/github-script@v7.0.1
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             github.rest.checks.create({
               name: "Lint",
@@ -40,7 +39,8 @@ jobs:
                     message: 'Line 12: Use `const` instead of `let`.'
                   }
                 ]
-              }
+              },
+              ...github.context.repo
             })
       # - name: Run tests
       #   run: npm test

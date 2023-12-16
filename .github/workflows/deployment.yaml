@@ -28,7 +28,7 @@ jobs:
               title: "Code Style",
               summary: "Linting your code for stylistic issues...",
               status: "completed",
-              conclusion: ${{ steps.lint.exit_code === 0 ? 'success' : 'failure' }},
+              conclusion: ${{ steps.lint.exit_code == 0 ? 'success' : 'failure' }},
               annotations: [
                 {
                   path: 'path/to/file.js',

@@ -29,7 +29,8 @@ jobs:
               name: "Lint",
               head_sha: context.sha,
               repo: context.repo.repo,
-              status: "failure",
+              status: "completed",
+              conclusion: "failure",
               output: {
                 title: "Code Style",
                 summary: "Linting your code for stylistic issues...",
@@ -43,6 +44,7 @@ jobs:
                   }
                 ]
               }
+              ...context.repo
             })
       # - name: Run tests
       #   run: npm test

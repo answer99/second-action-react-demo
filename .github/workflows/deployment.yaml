@@ -24,10 +24,11 @@ jobs:
         uses: actions/github-script@v7.0.1
         with:
           script: |
-            github.rest.checks.create({
+            github.checks.create({
+              owner: context.repo.owner,
               name: "Lint",
               head_sha: context.sha,
-              repo: context.repo,
+              repo: context.repo.repo,
               status: "failure",
               output: {
                 title: "Code Style",

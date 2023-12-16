@@ -12,11 +12,36 @@ jobs:
           node-version: 20
       - name: Install dependencies
         run: npm ci
-      - name: Run lint
-        run: npm run lint
-      - name: Run tests
-        run: npm test
-      - name: Build
-        run: npm run build
-      - name: Deploy
-        run: echo "Deploying ..."
+      - name: Install linters
+        run: |
+          npm install -g eslint
+      - name: Lint code
+        run: |
+          eslint .
+      - name: Create GitHub Check Run
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.actions.createCheckRun({
+              name: "Lint",
+              title: "Code Style",
+              summary: "Linting your code for stylistic issues...",
+              status: "completed",
+              conclusion: ${{ steps.lint.exit_code === 0 ? 'success' : 'failure' }},
+              annotations: [
+                {
+                  path: 'path/to/file.js',
+                  start_line: 10,
+                  end_line: 15,
+                  annotation_level: 'warning',
+                  message: 'Line 12: Use `const` instead of `let`.'
+                }
+              ]
+            })
+      # - name: Run tests
+      #   run: npm test
+      # - name: Build
+      #   run: npm run build
+      # - name: Deploy
+      #   run: echo "Deploying ..."

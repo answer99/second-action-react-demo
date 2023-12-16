@@ -23,17 +23,11 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            let status = "success";
-            let message = "Code style is clean!";
-            if [[ ${{ steps.lint.exit_code }} -ne 0 ]]; then
-              status = "failure";
-              message = "Found stylistic issues. Please review the annotations.";
-            fi
             github.actions.createCheckRun({
               name: "Lint",
               title: "Code Style",
               summary: "Linting your code for stylistic issues...",
-              status: status,
+              status: "failure",
               annotations: [
                 {
                   path: 'path/to/file.js',

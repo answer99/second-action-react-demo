@@ -18,6 +18,13 @@ jobs:
       - name: Lint code
         run: |
           eslint .
+      - name: Set conclusion
+        run: |
+          if [[ ${{ steps.lint.exit_code }} -eq 0 ]]; then
+            conclusion="success"
+          else
+            conclusion="failure"
+          fi
       - name: Create GitHub Check Run
         uses: actions/github-script@v7.0.1
         with:
@@ -28,7 +35,7 @@ jobs:
               title: "Code Style",
               summary: "Linting your code for stylistic issues...",
               status: "completed",
-              conclusion: ${{ steps.lint.exit_code }} === 0 ? 'success' : 'failure' ,
+              conclusion: ${{ conclusion }},
               annotations: [
                 {
                   path: 'path/to/file.js',

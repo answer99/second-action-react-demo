@@ -1,8 +1,9 @@
 name: Output Event
 on: issues
 jobs:
+  environments: testing
   output:
     runs-on: ubuntu-latest
     steps:
       - name: Print Event
-        run: echo "${{ toJSON(github.event) }}"
+        run: echo "$DB_NAME"

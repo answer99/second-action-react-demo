@@ -2,7 +2,7 @@ name: Output Event
 on: [issues, push]
 jobs:
   output:
-    environments: testing
+    environment: testing
     runs-on: ubuntu-latest
     steps:
       - name: Print Event

@@ -1,5 +1,5 @@
 name: Output Event
-on: issues
+on: [issues, push]
 jobs:
   output:
     environments: testing
